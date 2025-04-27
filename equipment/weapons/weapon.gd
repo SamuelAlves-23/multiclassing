@@ -1,6 +1,8 @@
 extends Node2D
 class_name Weapon
 
+@onready var animator: AnimationPlayer = $AnimationPlayer
+
 @export var attack_cooldown: float = 0.5
 @export var attack_damage: int = 1
 
@@ -11,6 +13,8 @@ func perform_attack(target_dir: Vector2):
 		return
 	
 	can_attack = false
+	
+	animator.play("attack")
 	
 	# Acá deberías crear el efecto de ataque, animación o hitbox
 	print("¡Ataque realizado!")
