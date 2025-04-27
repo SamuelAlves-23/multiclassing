@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ch5dwflhyqigr"]
+[gd_scene load_steps=5 format=3 uid="uid://ch5dwflhyqigr"]
 
 [ext_resource type="Texture2D" uid="uid://rxpk7i7i26fq" path="res://placeholders/Prototype_Character.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://bnysxce4o25se" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="PackedScene" uid="uid://da4sf7hg5kkqj" path="res://combat/health.tscn" id="3_g1dw6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
 size = Vector2(10, 12)
@@ -18,4 +19,11 @@ vframes = 12
 shape = SubResource("RectangleShape2D_rkbax")
 
 [node name="WeaponHolder" type="Node2D" parent="."]
-position = Vector2(4, 2)
+position = Vector2(0, 2)
+
+[node name="Health" parent="." instance=ExtResource("3_g1dw6")]
+visible = false
+position = Vector2(0, -7)
+
+[node name="HatHolder" type="Node2D" parent="."]
+position = Vector2(0, -4)

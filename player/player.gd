@@ -1,16 +1,21 @@
 extends CharacterBody2D
 
-@export var move_speed: float = 200.0
+@export var move_speed: float = 125.0
 
+@onready var health: Health = $Health
 @onready var body_sprite = $Sprite2D
 @onready var weapon_holder = $WeaponHolder
+@onready var hat_holder = $HatHolder
 
 var input_direction := Vector2.ZERO
 
 var equipped_weapon: Weapon = null
+var equipped_hat: Hat = null
 
 func _ready():
 	equip_weapon(preload("res://equipment/weapons/sword.tscn").instantiate())
+	equip_hat(preload("res://equipment/hats/pointy_hat.tscn").instantiate())
+	health.connect("died", die)
 
 func _process(delta):
 	if is_multiplayer_authority():
@@ -46,8 +51,19 @@ func equip_weapon(weapon_instance: Weapon):
 	equipped_weapon = weapon_instance
 	weapon_holder.add_child(equipped_weapon)
 
+func equip_hat(hat_instance: Hat):
+	if equipped_hat:
+		equipped_hat.queue_free()
+	equipped_hat = hat_instance
+	hat_holder.add_child(equipped_hat)
+
 func _input(event):
 	if event.is_action_pressed("attack_primary"):
 		if equipped_weapon:
 			var direction = (get_global_mouse_position() - global_position).normalized()
 			equipped_weapon.perform_attack(direction)
+	elif event.is_action_pressed("use_ability"):
+		if equipped_hat:
+			equipped_hat.use_ability(self)
+func die():
+	queue_free()

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dapyfd3pmarvr"]
+
+[ext_resource type="Script" uid="uid://tkg5k40qmegf" path="res://equipment/hats/hat.gd" id="1_k8evf"]
+[ext_resource type="Texture2D" uid="uid://cuh01x845fv2" path="res://placeholders/Pointy_hat.png" id="2_4a8bl"]
+[ext_resource type="Script" uid="uid://c88038p1kh3v4" path="res://equipment/hat_abilities/barrier.gd" id="2_77v6g"]
+
+[node name="PointyHat" type="Node2D"]
+script = ExtResource("1_k8evf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("2_4a8bl")
+
+[node name="Ability" type="Node2D" parent="."]
+script = ExtResource("2_77v6g")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0yk184b1ke7b"]
+
+[ext_resource type="Script" uid="uid://b1a86jv3n5137" path="res://equipment/ability_items/barrier_item.gd" id="1_lv18m"]
+[ext_resource type="Texture2D" uid="uid://dao7axolv7u4n" path="res://placeholders/barrier_item.png" id="1_ow4fu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lv18m"]
+radius = 8.0
+
+[node name="BarrierItem" type="Node2D"]
+script = ExtResource("1_lv18m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ow4fu")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_lv18m")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

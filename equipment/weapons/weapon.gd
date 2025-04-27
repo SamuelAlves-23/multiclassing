@@ -13,8 +13,8 @@ func perform_attack(target_dir: Vector2):
 		return
 	
 	can_attack = false
-	
-	animator.play("attack")
+
+	animator.play("Attack")
 	
 	# Acá deberías crear el efecto de ataque, animación o hitbox
 	print("¡Ataque realizado!")

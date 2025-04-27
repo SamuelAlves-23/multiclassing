@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpqfadsqgyavu"]
+[gd_scene load_steps=10 format=3 uid="uid://bpqfadsqgyavu"]
 
 [ext_resource type="Texture2D" uid="uid://b2w0d3ylmtq6x" path="res://placeholders/Weapon.png" id="1_e6qyl"]
 [ext_resource type="Script" uid="uid://ccxnp5lfvldfr" path="res://equipment/weapons/weapon.gd" id="1_vn4aw"]
@@ -47,14 +47,41 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Hitbox:monitoring")
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.05, 0.2),
+"times": PackedFloat32Array(0.0506308, 0.200465),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_pel8t"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_v6l4n"]
@@ -83,34 +110,11 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hitbox:monitoring")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v6l4n"]
 _data = {
 &"Attack": SubResource("Animation_vn4aw"),
+&"Idle": SubResource("Animation_pel8t"),
 &"RESET": SubResource("Animation_v6l4n")
 }
 
@@ -123,7 +127,7 @@ script = ExtResource("1_vn4aw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(7.51698, -0.0349131)
+position = Vector2(12.9535, -0.145862)
 rotation = 1.57351
 texture = ExtResource("1_e6qyl")
 
@@ -134,14 +138,16 @@ libraries = {
 
 [node name="AttackSprite" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(8.39054, 0.671246)
+position = Vector2(14.2154, 1.17052)
 texture = ExtResource("3_v6l4n")
 hframes = 5
 
 [node name="Hitbox" parent="." instance=ExtResource("4_pel8t")]
+position = Vector2(5.43651, -0.110949)
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(8.51151, 0.1918)
 shape = SubResource("CapsuleShape2D_beglp")
+disabled = true
 
 [editable path="Hitbox"]

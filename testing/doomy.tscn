@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://jupqqfv4usfg"]
+
+[ext_resource type="Texture2D" uid="uid://b3b6ddeyq34mi" path="res://placeholders/doomy.png" id="1_606r2"]
+[ext_resource type="Script" uid="uid://duhs2dvjab8wr" path="res://testing/doomy.gd" id="1_ssig4"]
+[ext_resource type="PackedScene" uid="uid://dkdq0pqlic845" path="res://combat/hurtbox.tscn" id="2_60f6u"]
+[ext_resource type="PackedScene" uid="uid://da4sf7hg5kkqj" path="res://combat/health.tscn" id="4_ngbwl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ssig4"]
+radius = 3.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ngbwl"]
+radius = 3.0
+height = 16.0
+
+[node name="Doomy" type="CharacterBody2D"]
+script = ExtResource("1_ssig4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_606r2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ssig4")
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_owner") instance=ExtResource("2_60f6u")]
+health_owner = NodePath("../Health")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CapsuleShape2D_ngbwl")
+
+[node name="Health" parent="." instance=ExtResource("4_ngbwl")]
+position = Vector2(0, -9)
+
+[editable path="Hurtbox"]
