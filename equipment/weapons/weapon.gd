@@ -8,6 +8,12 @@ class_name Weapon
 
 var can_attack := true
 
+@export var auto: bool = false
+
+func _process(delta: float) -> void:
+	if auto:
+		perform_attack(Vector2(1,0))
+
 func perform_attack(target_dir: Vector2):
 	if not can_attack:
 		return

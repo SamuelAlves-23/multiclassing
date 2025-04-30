@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://chjesqh1wx5jm"]
+[gd_scene load_steps=5 format=3 uid="uid://chjesqh1wx5jm"]
 
 [ext_resource type="PackedScene" uid="uid://ch5dwflhyqigr" path="res://player/player.tscn" id="1_ubfh8"]
 [ext_resource type="PackedScene" uid="uid://jupqqfv4usfg" path="res://testing/doomy.tscn" id="2_444vf"]
+[ext_resource type="PackedScene" uid="uid://b0yk184b1ke7b" path="res://equipment/ability_items/barrier_item.tscn" id="3_27ga2"]
+[ext_resource type="PackedScene" uid="uid://bpqfadsqgyavu" path="res://equipment/weapons/sword.tscn" id="4_h0wof"]
 
 [node name="Arena" type="Node2D"]
 
@@ -10,3 +12,10 @@ position = Vector2(236, 139)
 
 [node name="Doomy" parent="." instance=ExtResource("2_444vf")]
 position = Vector2(295, 133)
+
+[node name="BarrierItem" parent="." instance=ExtResource("3_27ga2")]
+position = Vector2(244, 101)
+
+[node name="Sword" parent="." instance=ExtResource("4_h0wof")]
+position = Vector2(127, 135)
+auto = true

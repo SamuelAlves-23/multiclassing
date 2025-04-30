@@ -4,6 +4,8 @@ class_name Hitbox
 @export var damage: int = 1
 @export var knockback_force: Vector2 = Vector2.ZERO
 
+@onready var collision: CollisionShape2D = $CollisionShape2D
+
 
 func _ready():
 	$CollisionShape2D.disabled = true
