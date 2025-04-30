@@ -5,6 +5,9 @@ class_name Hurtbox
 
 
 func receive_hit(damage: int, knockback: Vector2):
-	print("¡Golpe recibido!")
+	if get_parent().has_node("BarrierItem"):
+		return
+	
 	if health_owner and health_owner.has_method("apply_damage"):
+		print("¡Golpe recibido!")
 		health_owner.apply_damage(damage)

@@ -6,6 +6,7 @@ class_name Hat
 @export var cooldown: float = 2.0
 @export var icon: Texture2D
 @export var ability_name: String = "Default Ability"
+@export var player_owner: Player
 
 var can_use_ability := true
 

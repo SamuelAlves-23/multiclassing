@@ -5,7 +5,7 @@ signal disapeared
 
 @export var duration: int = 2
 
-#@onready var player_owner: Player
+@onready var player_owner: Player = get_parent()
 
 func _process(delta: float) -> void:
 	await get_tree().create_timer(duration).timeout
@@ -13,7 +13,8 @@ func _process(delta: float) -> void:
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area is Hitbox:
-		area.collision.disabled
+		
+		area.collision.disabled = true
 		hit_blocked.emit()
 		disapear()
 

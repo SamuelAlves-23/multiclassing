@@ -5,6 +5,7 @@ class_name Weapon
 
 @export var attack_cooldown: float = 0.5
 @export var attack_damage: int = 1
+@export var player_owner: Player
 
 var can_attack := true
 

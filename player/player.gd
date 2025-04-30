@@ -51,12 +51,14 @@ func equip_weapon(weapon_instance: Weapon):
 		equipped_weapon.queue_free()
 	equipped_weapon = weapon_instance
 	weapon_holder.add_child(equipped_weapon)
+	equipped_weapon.owner = self
 
 func equip_hat(hat_instance: Hat):
 	if equipped_hat:
 		equipped_hat.queue_free()
 	equipped_hat = hat_instance
 	hat_holder.add_child(equipped_hat)
+	equipped_hat.owner = self
 
 func _input(event):
 	if event.is_action_pressed("attack_primary"):
@@ -66,5 +68,6 @@ func _input(event):
 	elif event.is_action_pressed("use_ability"):
 		if equipped_hat:
 			equipped_hat.use_ability(self)
+
 func die():
 	queue_free()
