@@ -24,7 +24,6 @@ position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_rkbax")
 
 [node name="WeaponHolder" type="Node2D" parent="."]
-position = Vector2(0, 2)
 
 [node name="Health" parent="." instance=ExtResource("3_g1dw6")]
 position = Vector2(0, -7)

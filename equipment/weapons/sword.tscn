@@ -123,7 +123,6 @@ radius = 7.87479
 height = 23.799
 
 [node name="Sword" type="Node2D"]
-position = Vector2(0.909359, 0)
 script = ExtResource("1_vn4aw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -139,15 +138,14 @@ libraries = {
 
 [node name="AttackSprite" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(14.2154, 1.17052)
+position = Vector2(16, 0)
 texture = ExtResource("3_v6l4n")
 hframes = 5
 
 [node name="Hitbox" parent="." instance=ExtResource("4_pel8t")]
-position = Vector2(14.388, -0.419509)
+position = Vector2(16, 0)
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(-0.303114, 1.43982)
 shape = SubResource("CapsuleShape2D_beglp")
 disabled = true
 
