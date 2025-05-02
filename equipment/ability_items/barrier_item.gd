@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area is Hitbox:
 		
-		area.collision.disabled = true
+		#area.collision.disabled = true
 		hit_blocked.emit()
 		disapear()
 

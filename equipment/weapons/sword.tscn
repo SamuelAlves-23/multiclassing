@@ -124,6 +124,7 @@ height = 23.799
 
 [node name="Sword" type="Node2D"]
 script = ExtResource("1_vn4aw")
+attack_cooldown = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
