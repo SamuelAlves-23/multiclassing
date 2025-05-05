@@ -1,6 +1,14 @@
 extends CharacterBody2D
 class_name Player
 
+enum InputMode { KEYBOARD, GAMEPAD }
+
+@export var player_id := 1
+@export var input_mode: InputMode = InputMode.KEYBOARD
+@export var device_id: int = -1  # Solo se usa si es GAMEPAD
+@export var speed := 200.0
+
+
 @export var move_speed: float = 125.0
 
 @onready var health: Health = $Health
@@ -28,6 +36,13 @@ func _physics_process(delta):
 
 func capture_input():
 	var dir = Vector2.ZERO
+	
+	if input_mode == InputMode.KEYBOARD:
+		dir = Vector2(
+			Input.get_action_strength("move_right_p1") - Input.get_action_strength("move_left_p1"),
+			Input.get_action_strength("move_down_p1") - Input.get_action_strength("move_up_p1")
+		)
+	
 	dir.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	dir.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	input_direction = dir.normalized()
