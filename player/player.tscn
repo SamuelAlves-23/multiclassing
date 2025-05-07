@@ -37,4 +37,6 @@ health_owner = NodePath("../Health")
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_qjkh3")
 
+[node name="Cursor" type="Node2D" parent="."]
+
 [editable path="Hurtbox"]
