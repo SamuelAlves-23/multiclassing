@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ch5dwflhyqigr"]
+[gd_scene load_steps=8 format=3 uid="uid://ch5dwflhyqigr"]
 
 [ext_resource type="Texture2D" uid="uid://rxpk7i7i26fq" path="res://placeholders/Prototype_Character.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://bnysxce4o25se" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="PackedScene" uid="uid://da4sf7hg5kkqj" path="res://combat/health.tscn" id="3_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://dkdq0pqlic845" path="res://combat/hurtbox.tscn" id="4_yw30f"]
+[ext_resource type="Texture2D" uid="uid://dg7mjlhkj6oiq" path="res://placeholders/Cursor_marker.png" id="5_qjkh3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
 size = Vector2(6, 5)
@@ -38,5 +39,8 @@ health_owner = NodePath("../Health")
 shape = SubResource("RectangleShape2D_qjkh3")
 
 [node name="Cursor" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Cursor"]
+texture = ExtResource("5_qjkh3")
 
 [editable path="Hurtbox"]

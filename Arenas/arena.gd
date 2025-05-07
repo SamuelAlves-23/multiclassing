@@ -1,13 +1,13 @@
 extends Node2D
 
 @onready var spawn_points = [$Spawn1, $Spawn2, $Spawn3, $Spawn4]
-@export var player_scene: PackedScene = preload("res://player/player.tscn")
+@onready var player_scene: PackedScene = preload("res://player/player.tscn")
+
 
 func _ready() -> void:
 	var joypads = Input.get_connected_joypads()
-	var player_count = 2
-	
-	for i in range(player_count):
+	if GlobalManager.player_amount == 0: GlobalManager.player_amount = 2
+	for i in range(GlobalManager.player_amount):
 		var player: Player = player_scene.instantiate()
 		player.player_id = i + 1
 		player.global_position = spawn_points[i].global_position

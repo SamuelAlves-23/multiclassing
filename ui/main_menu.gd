@@ -17,6 +17,7 @@ func _on_local_back_button_pressed() -> void:
 
 func _on_local_play_button_pressed() -> void:
 	if local_player_amount.text:
-		print(local_player_amount.text)
+		GlobalManager.player_amount = local_player_amount.text.to_int()
+		GlobalManager.go_to_scene("res://Arenas/arena.tscn")
 	else:
 		print("Es necesario ingresar número de jugadores")
