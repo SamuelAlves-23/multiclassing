@@ -8,6 +8,8 @@ enum InputMode { KEYBOARD, GAMEPAD }
 @export var device_id: int = -1  # Solo se usa si es GAMEPAD
 @export var speed := 200.0
 @export var cursor_speed: float = 300.0
+@export var max_cursor_distance: float = 20
+#@export var return_cursor_speed: float = 100
 
 const DEADZONE: float = 0.2
 
@@ -60,11 +62,11 @@ func capture_input():
 		dir.x = 0.0 if abs(dir.x) < DEADZONE else dir.x
 		dir.y = 0.0 if abs(dir.y) < DEADZONE else dir.y
 		
-		if Input.is_joy_button_pressed(device_id, JOY_BUTTON_A):  # botón A
+		if Input.is_joy_button_pressed(device_id, JOY_BUTTON_RIGHT_SHOULDER):  # botón A
 			if equipped_weapon:
 				var direction = (get_global_mouse_position() - global_position).normalized()
 				equipped_weapon.perform_attack(direction)
-		if Input.is_joy_button_pressed(device_id, JOY_BUTTON_B):
+		if Input.is_joy_button_pressed(device_id, JOY_BUTTON_LEFT_SHOULDER):
 			if equipped_hat:
 				equipped_hat.use_ability(self)
 				
@@ -78,14 +80,16 @@ func move():
 
 func update_aim(delta):
 	if input_mode == InputMode.KEYBOARD:
-		cursor.global_position = get_global_mouse_position()
+		cursor.position = get_global_mouse_position()
 	elif input_mode == InputMode.GAMEPAD:
 			var move_x = Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_X)
 			var move_y = Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_Y)
 			var move_vector = Vector2(move_x, move_y)
 			if move_vector.length() > DEADZONE:
-				cursor.global_position += move_vector.normalized() * cursor_speed * delta
-	var direction = (cursor.global_position - global_position)
+				cursor.position += move_vector.normalized() * cursor_speed * delta
+				if cursor.position.length() > max_cursor_distance:
+					cursor.position = position.normalized() * max_cursor_distance
+	var direction = (cursor.position - position)
 
 	# Flip del cuerpo
 	body_sprite.flip_h = direction.x < 0
