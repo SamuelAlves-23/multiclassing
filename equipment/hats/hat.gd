@@ -2,6 +2,7 @@ extends Node2D
 class_name Hat
 
 @onready var ability: Ability = $Ability
+@onready var sprite: Sprite2D = $Sprite2D
 
 @export var cooldown: float = 2.0
 @export var icon: Texture2D

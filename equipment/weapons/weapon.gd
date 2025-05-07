@@ -2,6 +2,7 @@ extends Node2D
 class_name Weapon
 
 @onready var animator: AnimationPlayer = $AnimationPlayer
+@onready var sprite: Sprite2D = $Sprite2D
 
 @export var attack_cooldown: float = 0.5
 @export var attack_damage: int = 1
