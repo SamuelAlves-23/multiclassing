@@ -21,8 +21,6 @@ var equipped_hat: Hat = null
 var last_attack_direction: Vector2 = Vector2.RIGHT  # ✅ Dirección por defecto
 
 func _ready():
-	equip_weapon(preload("res://equipment/weapons/sword.tscn").instantiate())
-	equip_hat(preload("res://equipment/hats/pointy_hat.tscn").instantiate())
 	health.connect("died", die)
 
 func _process(delta):
@@ -115,6 +113,7 @@ func update_aim():
 
 func equip_weapon(weapon_instance: Weapon):
 	if equipped_weapon:
+		drop(equipped_weapon)
 		equipped_weapon.queue_free()
 	equipped_weapon = weapon_instance
 	weapon_holder.add_child(equipped_weapon)
@@ -122,6 +121,7 @@ func equip_weapon(weapon_instance: Weapon):
 
 func equip_hat(hat_instance: Hat):
 	if equipped_hat:
+		drop(equipped_hat)
 		equipped_hat.queue_free()
 	equipped_hat = hat_instance
 	hat_holder.add_child(equipped_hat)
@@ -129,3 +129,10 @@ func equip_hat(hat_instance: Hat):
 
 func die():
 	queue_free()
+
+func drop(item) -> void:
+	var arena = get_tree().get_first_node_in_group("Arena")
+	var pick_up_scene: Pickup = GlobalManager.pickup_node.instantiate()
+	pick_up_scene.item_scene = ResourceLoader.load(item.scene_file_path)
+	arena.add_child(pick_up_scene)
+	pick_up_scene.global_position = global_position

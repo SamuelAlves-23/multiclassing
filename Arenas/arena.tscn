@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bpqfadsqgyavu" path="res://equipment/weapons/sword.tscn" id="5_q76kk"]
 [ext_resource type="PackedScene" uid="uid://dapyfd3pmarvr" path="res://equipment/hats/pointy_hat.tscn" id="6_s5dsi"]
 
-[node name="Arena" type="Node2D"]
+[node name="Arena" type="Node2D" groups=["Arena"]]
 script = ExtResource("1_4kkwr")
 
 [node name="TileMapLayer" parent="." instance=ExtResource("2_pb4r7")]
