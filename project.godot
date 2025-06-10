@@ -76,6 +76,7 @@ use_ability_p1={
 2d_physics/layer_3="attacks"
 2d_physics/layer_4="skills"
 2d_physics/layer_5="traps"
+2d_physics/layer_6="pickups"
 
 [rendering]
 

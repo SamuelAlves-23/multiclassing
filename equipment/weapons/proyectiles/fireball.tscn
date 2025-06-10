@@ -1,23 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://ts3dd8a1ohy1"]
+[gd_scene load_steps=4 format=3 uid="uid://ts3dd8a1ohy1"]
 
 [ext_resource type="Script" uid="uid://c4g6koufm8enc" path="res://equipment/weapons/proyectiles/fireball.gd" id="1_if1b8"]
 [ext_resource type="Texture2D" uid="uid://c0ik1ujsne8d8" path="res://placeholders/Fireball.png" id="1_m0jpl"]
-[ext_resource type="PackedScene" uid="uid://cqcceawkts5l" path="res://combat/hitbox.tscn" id="2_knu10"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_if1b8"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_knu10"]
 radius = 4.0
 
-[node name="Fireball" type="Node2D"]
+[node name="Fireball" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_if1b8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_m0jpl")
 
-[node name="Hitbox" parent="." instance=ExtResource("2_knu10")]
-collision_layer = 4
-collision_mask = 3
-
-[node name="CollisionShape2D" parent="Hitbox" index="0"]
-shape = SubResource("CircleShape2D_if1b8")
-
-[editable path="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_knu10")
