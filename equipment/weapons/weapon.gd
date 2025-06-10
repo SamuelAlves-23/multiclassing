@@ -1,6 +1,8 @@
 extends Node2D
 class_name Weapon
 
+@export var proyectile: PackedScene
+
 @onready var animator: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -31,3 +33,7 @@ func perform_attack(target_dir: Vector2):
 	
 	await get_tree().create_timer(attack_cooldown).timeout
 	can_attack = true
+
+func fire_proyectile() -> void:
+	var proyectile_instance = proyectile.instantiate()
+	add_child(proyectile_instance)

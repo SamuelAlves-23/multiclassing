@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://xgu6j5t1r3qa"]
+
+[ext_resource type="Script" uid="uid://ccxnp5lfvldfr" path="res://equipment/weapons/weapon.gd" id="1_bcqnq"]
+[ext_resource type="Texture2D" uid="uid://bjsg1ci6al8yn" path="res://placeholders/Rod.png" id="2_on603"]
+
+[node name="Rod" type="Node2D"]
+script = ExtResource("1_bcqnq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 0)
+rotation = 1.5708
+texture = ExtResource("2_on603")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="ProyectileSpawner" type="Marker2D" parent="."]
+position = Vector2(14, 0)

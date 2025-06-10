@@ -43,18 +43,19 @@ func capture_input():
 		)
 		if Input.is_action_just_pressed("attack_p1"):
 			attack_dir = (get_global_mouse_position() - global_position).normalized()
-			last_attack_direction = attack_dir  # ✅ Guardar dirección
+			last_attack_direction = attack_dir
 			should_attack = true
 		if Input.is_action_pressed("use_ability_p1") and equipped_hat:
 			equipped_hat.use_ability(self)
 
 	elif input_mode == InputMode.GAMEPAD:
-		dir = Vector2(
+		var raw_input := Vector2(
 			Input.get_joy_axis(device_id, JOY_AXIS_LEFT_X),
 			Input.get_joy_axis(device_id, JOY_AXIS_LEFT_Y)
 		)
-		dir.x = 0.0 if abs(dir.x) < DEADZONE else dir.x
-		dir.y = 0.0 if abs(dir.y) < DEADZONE else dir.y
+
+		# Deadzone aplicada al vector completo
+		dir = raw_input if raw_input.length() >= DEADZONE else Vector2.ZERO
 
 		var joy_right = Vector2(
 			Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_X),
@@ -63,7 +64,7 @@ func capture_input():
 
 		if joy_right.length() > DEADZONE:
 			attack_dir = joy_right.normalized()
-			last_attack_direction = attack_dir  # ✅ Guardar dirección
+			last_attack_direction = attack_dir
 			should_attack = true
 		else:
 			# D-Pad fallback
@@ -87,10 +88,12 @@ func capture_input():
 		if Input.is_joy_button_pressed(device_id, JOY_BUTTON_LEFT_SHOULDER) and equipped_hat:
 			equipped_hat.use_ability(self)
 
-	input_direction = dir.normalized()
+	# Siempre se normaliza al final si hay dirección
+	input_direction = dir.normalized() if dir != Vector2.ZERO else Vector2.ZERO
 
 	if should_attack and equipped_weapon:
 		equipped_weapon.perform_attack(last_attack_direction)
+
 
 func move():
 	velocity = input_direction * move_speed
