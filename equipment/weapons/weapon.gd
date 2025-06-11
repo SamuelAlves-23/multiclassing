@@ -11,7 +11,7 @@ class_name Weapon
 @export var player_owner: Player
 
 var can_attack := true
-
+var last_attack_dir: Vector2 = Vector2.RIGHT
 @export var auto: bool = false
 
 func _process(delta: float) -> void:
@@ -23,6 +23,7 @@ func perform_attack(target_dir: Vector2):
 		return
 	
 	can_attack = false
+	last_attack_dir = target_dir.normalized()
 	animator.play("Attack")
 	
 	
@@ -37,5 +38,8 @@ func fire_proyectile() -> void:
 	var arena = get_tree().get_first_node_in_group("Arena")
 	var pos: Marker2D = $ProyectileSpawner
 	var proyectile_instance = proyectile.instantiate()
-	arena.add_child(proyectile_instance)
 	proyectile_instance.global_position = pos.global_position
+	proyectile_instance.direction = last_attack_dir
+	
+	
+	arena.add_child(proyectile_instance)

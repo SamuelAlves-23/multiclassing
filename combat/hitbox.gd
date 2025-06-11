@@ -8,10 +8,11 @@ class_name Hitbox
 
 
 func _ready():
-	$CollisionShape2D.disabled = true
+	#$CollisionShape2D.disabled = true
 	connect("area_entered", Callable(self, "_on_area_entered"))
 
 func _on_area_entered(area):
+	print("Entramos")
 	if area is Hurtbox:
 		area.receive_hit(damage, knockback_force)
 		#queue_free()
