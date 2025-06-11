@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgiej8n0qgso7"]
+[gd_scene load_steps=4 format=3 uid="uid://bgiej8n0qgso7"]
 
 [ext_resource type="Texture2D" uid="uid://btid1auhlxfrw" path="res://placeholders/Iron_helmet.png" id="1_c2rap"]
 [ext_resource type="Script" uid="uid://tkg5k40qmegf" path="res://equipment/hats/hat.gd" id="1_ca0nk"]
+[ext_resource type="Script" uid="uid://cruwf58ccqrdx" path="res://equipment/hat_abilities/combo.gd" id="3_0svym"]
 
 [node name="IronHelmet" type="Node2D"]
 script = ExtResource("1_ca0nk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_c2rap")
+
+[node name="Ability" type="Node2D" parent="."]
+script = ExtResource("3_0svym")
