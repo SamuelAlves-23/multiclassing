@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://chjesqh1wx5jm"]
+[gd_scene load_steps=12 format=4 uid="uid://chjesqh1wx5jm"]
 
 [ext_resource type="Script" uid="uid://dkxhh535cfxwc" path="res://Arenas/arena.gd" id="1_4kkwr"]
 [ext_resource type="PackedScene" uid="uid://lpg18dynrpiy" path="res://Arenas/tile_map_layer.tscn" id="2_pb4r7"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dapyfd3pmarvr" path="res://equipment/hats/pointy_hat.tscn" id="6_s5dsi"]
 [ext_resource type="PackedScene" uid="uid://bgiej8n0qgso7" path="res://equipment/hats/iron_helmet.tscn" id="7_n7d4a"]
 [ext_resource type="PackedScene" uid="uid://281pfm68qnyq" path="res://equipment/weapons/bow.tscn" id="8_q76kk"]
+[ext_resource type="PackedScene" uid="uid://3drejbn4ajuf" path="res://equipment/hats/bycoket.tscn" id="9_f7qa7"]
 [ext_resource type="PackedScene" uid="uid://byxxyx6mi8l33" path="res://equipment/ability_items/trap_item.tscn" id="10_k740f"]
 
 [node name="Arena" type="Node2D" groups=["Arena"]]
@@ -51,6 +52,10 @@ item_scene = ExtResource("7_n7d4a")
 [node name="Pickup6" parent="." instance=ExtResource("5_pb4r7")]
 position = Vector2(84, 119)
 item_scene = ExtResource("8_q76kk")
+
+[node name="Pickup7" parent="." instance=ExtResource("5_pb4r7")]
+position = Vector2(109, 96)
+item_scene = ExtResource("9_f7qa7")
 
 [node name="Pickup3" parent="." instance=ExtResource("5_pb4r7")]
 position = Vector2(374, 90)

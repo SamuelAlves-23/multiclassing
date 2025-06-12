@@ -6,6 +6,7 @@
 
 [node name="IronHelmet" type="Node2D"]
 script = ExtResource("1_ca0nk")
+ability_name = "Combo"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_c2rap")

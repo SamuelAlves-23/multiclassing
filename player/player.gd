@@ -20,6 +20,7 @@ var equipped_weapon: Weapon = null
 var equipped_hat: Hat = null
 var last_attack_direction: Vector2 = Vector2.RIGHT  # Dirección por defecto
 var trapped: bool = false
+var direction
 
 func _ready():
 	health.connect("died", die)
@@ -99,7 +100,7 @@ func move():
 		move_and_slide()
 
 func update_aim():
-	var direction = Vector2.ZERO
+	direction = Vector2.ZERO
 
 	if input_mode == InputMode.KEYBOARD:
 		direction = get_global_mouse_position() - global_position
@@ -130,7 +131,8 @@ func equip_hat(hat_instance: Hat):
 	equipped_hat = hat_instance
 	hat_holder.add_child(equipped_hat)
 	equipped_hat.player_owner = self
-	update_hat_reference()
+	if equipped_weapon != null:
+		update_hat_reference()
 
 func die():
 	queue_free()
@@ -150,3 +152,7 @@ func paralyze(time: float):
 	trapped = true
 	await get_tree().create_timer(time).timeout
 	trapped = false
+
+func back_dash(impulse: float):
+	var back_dir = -direction.normalized()
+	move_and_collide(back_dir * impulse)
