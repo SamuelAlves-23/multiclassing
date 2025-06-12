@@ -10,8 +10,9 @@ class_name Weapon
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animator: AnimationPlayer = $AnimationPlayer
 
-var can_attack := true
+var can_attack: bool = true
 var last_attack_dir: Vector2 = Vector2.RIGHT
+var weapon_rotation
 
 func _process(delta: float) -> void:
 	if auto:
@@ -67,6 +68,34 @@ func fire_proyectile_with_offset(dir: Vector2):
 	proyectile_instance.global_position = pos.global_position
 	proyectile_instance.direction = dir
 	arena.add_child(proyectile_instance)
+
+func fire_burst_1_2_3():
+	update_dir()
+
+	var base_angle = last_attack_dir.angle()
+	var dir_center = Vector2.RIGHT.rotated(base_angle)
+
+	var spread_small = deg_to_rad(12)
+	var spread_large = deg_to_rad(25)
+	var delay = 0.3
+
+	# Fase 1: 1 disparo recto
+	fire_proyectile_with_offset(dir_center)
+	await get_tree().create_timer(delay).timeout
+
+	# Fase 2: 2 disparos con apertura pequeña
+	fire_proyectile_with_offset(Vector2.RIGHT.rotated(base_angle + spread_small))
+	fire_proyectile_with_offset(Vector2.RIGHT.rotated(base_angle - spread_small))
+	await get_tree().create_timer(delay).timeout
+
+	# Fase 3: 3 disparos con apertura amplia
+	fire_proyectile_with_offset(dir_center)
+	fire_proyectile_with_offset(Vector2.RIGHT.rotated(base_angle + spread_large))
+	fire_proyectile_with_offset(Vector2.RIGHT.rotated(base_angle - spread_large))
+
+	await get_tree().create_timer(attack_cooldown).timeout
+	can_attack = true
+
 
 
 func update_dir():

@@ -19,6 +19,7 @@ var input_direction := Vector2.ZERO
 var equipped_weapon: Weapon = null
 var equipped_hat: Hat = null
 var last_attack_direction: Vector2 = Vector2.RIGHT  # Dirección por defecto
+var trapped: bool = false
 
 func _ready():
 	health.connect("died", die)
@@ -93,8 +94,9 @@ func capture_input():
 		equipped_weapon.perform_attack(last_attack_direction)
 
 func move():
-	velocity = input_direction * move_speed
-	move_and_slide()
+	if !trapped:
+		velocity = input_direction * move_speed
+		move_and_slide()
 
 func update_aim():
 	var direction = Vector2.ZERO
@@ -110,9 +112,6 @@ func update_aim():
 
 	# Rotación del arma
 	weapon_holder.rotation = direction.angle()
-	
-	#if equipped_weapon != null:
-		#equipped_weapon.last_attack_dir = direction
 
 func equip_weapon(weapon_instance: Weapon):
 	if equipped_weapon:
@@ -121,6 +120,8 @@ func equip_weapon(weapon_instance: Weapon):
 	equipped_weapon = weapon_instance
 	weapon_holder.add_child(equipped_weapon)
 	equipped_weapon.player_owner = self
+	if equipped_hat != null:
+		update_hat_reference()
 
 func equip_hat(hat_instance: Hat):
 	if equipped_hat:
@@ -129,8 +130,7 @@ func equip_hat(hat_instance: Hat):
 	equipped_hat = hat_instance
 	hat_holder.add_child(equipped_hat)
 	equipped_hat.player_owner = self
-	if "animator" in equipped_hat.ability:
-		equipped_hat.ability.animator = equipped_weapon.animator
+	update_hat_reference()
 
 func die():
 	queue_free()
@@ -141,3 +141,12 @@ func drop(item) -> void:
 	pick_up_scene.item_scene = ResourceLoader.load(item.scene_file_path)
 	arena.add_child(pick_up_scene)
 	pick_up_scene.global_position = global_position
+
+func update_hat_reference()-> void:
+	if "animator" in equipped_hat.ability:
+		equipped_hat.ability.animator = equipped_weapon.animator
+
+func paralyze(time: float):
+	trapped = true
+	await get_tree().create_timer(time).timeout
+	trapped = false

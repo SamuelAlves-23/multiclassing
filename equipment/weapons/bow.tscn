@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://281pfm68qnyq"]
+
+[ext_resource type="Texture2D" uid="uid://dm3ao02v4x7jk" path="res://placeholders/Bow.png" id="1_ec0sx"]
+[ext_resource type="Script" uid="uid://ccxnp5lfvldfr" path="res://equipment/weapons/weapon.gd" id="1_ppv64"]
+[ext_resource type="PackedScene" uid="uid://rjklwjkb57wa" path="res://equipment/weapons/proyectiles/Arrow.tscn" id="2_o7xsq"]
+
+[sub_resource type="Animation" id="Animation_o7xsq"]
+resource_name = "Attack"
+
+[sub_resource type="Animation" id="Animation_74wpw"]
+resource_name = "Combo"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n3cxu"]
+_data = {
+&"Attack": SubResource("Animation_o7xsq"),
+&"Combo": SubResource("Animation_74wpw")
+}
+
+[node name="Bow" type="Node2D"]
+script = ExtResource("1_ppv64")
+proyectile = ExtResource("2_o7xsq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5, 0)
+texture = ExtResource("1_ec0sx")
+
+[node name="ProyectileSpawner" type="Marker2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_n3cxu")
+}

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ts3dd8a1ohy1"]
 
-[ext_resource type="Script" uid="uid://c4g6koufm8enc" path="res://equipment/weapons/proyectiles/fireball.gd" id="1_if1b8"]
+[ext_resource type="Script" uid="uid://c4g6koufm8enc" path="res://equipment/weapons/proyectiles/Proyectile.gd" id="1_if1b8"]
 [ext_resource type="Texture2D" uid="uid://c0ik1ujsne8d8" path="res://placeholders/Fireball.png" id="1_m0jpl"]
 [ext_resource type="PackedScene" uid="uid://cqcceawkts5l" path="res://combat/hitbox.tscn" id="3_if1b8"]
 

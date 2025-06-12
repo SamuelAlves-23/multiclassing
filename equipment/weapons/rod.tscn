@@ -30,23 +30,11 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"fire_proyectile"
-}, {
-"args": [],
-"method": &"update_dir"
-}, {
-"args": [],
-"method": &"fire_proyectile"
-}, {
-"args": [],
-"method": &"update_dir"
-}, {
-"args": [],
-"method": &"fire_proyectile"
+"method": &"fire_burst_1_2_3"
 }]
 }
 
