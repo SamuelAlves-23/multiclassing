@@ -29,8 +29,6 @@ func perform_attack(target_dir: Vector2):
 	else:
 		animator.play("Attack")
 	
-	
-	
 	# Acá deberías crear el efecto de ataque, animación o hitbox
 	print("¡Ataque realizado!")
 	
@@ -49,10 +47,8 @@ func fire_proyectile() -> void:
 func fire_projectile_burst(directions: Array, delay_between: float = 0.1) -> void:
 	if directions.is_empty():
 		return
-
 	#can_attack = false
 	update_dir()  # Asegura dirección inicial
-
 	# Disparar cada proyectil con delay entre ellos
 	for dir in directions:
 		fire_proyectile_with_offset(dir.normalized())
