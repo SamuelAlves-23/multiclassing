@@ -1,10 +1,9 @@
 extends CharacterBody2D
 class_name Player
 
-enum InputMode { KEYBOARD, GAMEPAD }
 
 @export var player_id := 1
-@export var input_mode: InputMode = InputMode.KEYBOARD
+@export var input_mode: String = ""
 @export var device_id: int = -1
 @export var speed := 200.0
 @export var move_speed: float = 125.0
@@ -38,7 +37,7 @@ func capture_input():
 	var attack_dir = Vector2.ZERO
 	var should_attack = false
 
-	if input_mode == InputMode.KEYBOARD:
+	if input_mode == "keyboard":
 		dir = Vector2(
 			Input.get_action_strength("move_right_p1") - Input.get_action_strength("move_left_p1"),
 			Input.get_action_strength("move_down_p1") - Input.get_action_strength("move_up_p1")
@@ -54,7 +53,7 @@ func capture_input():
 		if Input.is_action_pressed("use_ability_p1") and equipped_hat:
 			equipped_hat.use_ability(self)
 
-	elif input_mode == InputMode.GAMEPAD:
+	elif input_mode == "gamepad":
 		var raw_input := Vector2(
 			Input.get_joy_axis(device_id, JOY_AXIS_LEFT_X),
 			Input.get_joy_axis(device_id, JOY_AXIS_LEFT_Y)
@@ -102,9 +101,9 @@ func move():
 func update_aim():
 	direction = Vector2.ZERO
 
-	if input_mode == InputMode.KEYBOARD:
+	if input_mode == "keyboard":
 		direction = get_global_mouse_position() - global_position
-	elif input_mode == InputMode.GAMEPAD:
+	elif input_mode == "gamepad":
 		# Usar la última dirección válida guardada
 		direction = last_attack_direction
 

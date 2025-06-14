@@ -1,22 +1,20 @@
 extends Node2D
 
-@onready var exit_area: Area2D = $ExitArea
-@onready var ready_area: Area2D = $ReadyArea
+@onready var local_entrance: Area2D = $LocalEntrance
+@onready var online_entrance: Area2D = $OnlineEntrance
+@onready var intro_label: Label = $CanvasLayer/Control/IntroLabel
 @onready var spawn_point: Marker2D = $SpawnPoint
 
-
+@onready var allow_join:bool = false
+@onready var started: bool = false
 
 func _ready() -> void:
 	GlobalManager.current_area = self
-	GlobalManager.spawn_player(GlobalManager.player_list[0], spawn_point.global_position)
-
-func _on_exit_area_body_entered(body: Node2D) -> void:
-	if body is Player and GlobalManager.player_list.size() == 1:
-		GlobalManager.go_to_scene("res://Arenas/entrance.tscn")
-
+	await get_tree().create_timer(0.5).timeout
+	allow_join = true
 
 func _unhandled_input(event: InputEvent) -> void:
-	if GlobalManager.player_list.size() < GlobalManager.player_max:
+	if !started and allow_join:
 		if event is InputEventJoypadMotion:
 			return
 		if event  is InputEventJoypadButton and event.pressed:
@@ -26,4 +24,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event is InputEventKey and event.pressed:
 			if !GlobalManager.is_deviced_joined("keyboard"):
 				GlobalManager.join_player("keyboard", "keyboard")
+		started = true
+		intro_label.hide()
 		GlobalManager.spawn_player(GlobalManager.player_list[0], spawn_point.global_position)
+
+
+func _on_local_entrance_body_entered(body: Node2D) -> void:
+	if body is Player:
+		GlobalManager.go_to_scene("res://Arenas/local_lobby.tscn")

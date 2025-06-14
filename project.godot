@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Multiclassing"
-run/main_scene="uid://chjesqh1wx5jm"
+run/main_scene="uid://burmdn5f46l1p"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

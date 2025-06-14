@@ -33,6 +33,7 @@ position = Vector2(101, 39)
 
 [node name="ExitArea" type="Area2D" parent="."]
 position = Vector2(390, 294)
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitArea"]
 shape = SubResource("RectangleShape2D_lcm5x")
@@ -60,3 +61,5 @@ text = "Ready"
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
 position = Vector2(388, 261)
+
+[connection signal="body_entered" from="ExitArea" to="." method="_on_exit_area_body_entered"]
