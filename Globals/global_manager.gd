@@ -13,9 +13,9 @@ func go_to_scene(new_scene: String) -> void:
 	get_tree().change_scene_to_file(new_scene)
 
 
-func is_deviced_joined(device_id) -> bool:
-	for player in player_list:
-		if device_id == device_id:
+func is_device_joined(device_id) -> bool:
+	for p in player_list:
+		if typeof(p.device_id) == typeof(device_id) and p.device_id == device_id:
 			return true
 	return false
 

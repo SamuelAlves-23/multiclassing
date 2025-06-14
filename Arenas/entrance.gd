@@ -19,15 +19,20 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 		if event  is InputEventJoypadButton and event.pressed:
 			var device_id = event.device
-			if !GlobalManager.is_deviced_joined(device_id):
+			if !GlobalManager.is_device_joined(device_id):
 				GlobalManager.join_player("gamepad", device_id)
-		elif event is InputEventKey and event.pressed:
-			if !GlobalManager.is_deviced_joined("keyboard"):
-				GlobalManager.join_player("keyboard", "keyboard")
-		started = true
-		intro_label.hide()
-		GlobalManager.spawn_player(GlobalManager.player_list[0], spawn_point.global_position)
+				started = true
+				intro_label.hide()
+				GlobalManager.spawn_player(GlobalManager.player_list[0], spawn_point.global_position)
 
+		elif event is InputEventKey and event.pressed:
+			if !GlobalManager.is_device_joined("keyboard"):
+				GlobalManager.join_player("keyboard", "keyboard")
+				started = true
+				intro_label.hide()
+				GlobalManager.spawn_player(GlobalManager.player_list[0], spawn_point.global_position)
+
+		
 
 func _on_local_entrance_body_entered(body: Node2D) -> void:
 	if body is Player:
