@@ -7,7 +7,7 @@ signal disapeared
 
 @onready var player_owner: Player = get_parent()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	await get_tree().create_timer(duration).timeout
 	disapear()
 

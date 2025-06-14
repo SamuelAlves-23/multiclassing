@@ -9,7 +9,7 @@ signal destroyed(trap)
 
 
 func _ready() -> void:
-	get_tree().create_timer(ready_time).timeout
+	await get_tree().create_timer(ready_time).timeout
 	active = true
 
 func _on_body_entered(body: Node2D) -> void:

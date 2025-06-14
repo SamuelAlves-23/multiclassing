@@ -14,11 +14,11 @@ var can_attack: bool = true
 var last_attack_dir: Vector2 = Vector2.RIGHT
 var weapon_rotation
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if auto:
 		perform_attack(Vector2(1,0))
 
-func perform_attack(target_dir: Vector2):
+func perform_attack(_target_dir: Vector2):
 	if not can_attack:
 		return
 	
@@ -37,12 +37,11 @@ func perform_attack(target_dir: Vector2):
 
 func fire_proyectile() -> void:
 	update_dir()
-	var arena = get_tree().get_first_node_in_group("Arena")
 	var pos: Marker2D = $ProyectileSpawner
 	var proyectile_instance = proyectile.instantiate()
 	proyectile_instance.global_position = pos.global_position
 	proyectile_instance.direction = last_attack_dir
-	arena.add_child(proyectile_instance)
+	GlobalManager.current_area.add_child(proyectile_instance)
 
 func fire_projectile_burst(directions: Array, delay_between: float = 0.1) -> void:
 	if directions.is_empty():
@@ -58,12 +57,11 @@ func fire_projectile_burst(directions: Array, delay_between: float = 0.1) -> voi
 	can_attack = true
 
 func fire_proyectile_with_offset(dir: Vector2):
-	var arena = get_tree().get_first_node_in_group("Arena")
 	var pos: Marker2D = $ProyectileSpawner
 	var proyectile_instance = proyectile.instantiate()
 	proyectile_instance.global_position = pos.global_position
 	proyectile_instance.direction = dir
-	arena.add_child(proyectile_instance)
+	GlobalManager.current_area.add_child(proyectile_instance)
 
 func fire_burst_1_2_3():
 	update_dir()

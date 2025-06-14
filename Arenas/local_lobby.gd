@@ -4,6 +4,8 @@ extends Node2D
 @onready var ready_area: Area2D = $ReadyArea
 @onready var spawn_point: Marker2D = $SpawnPoint
 
+@onready var ready_players: int = 0
+
 func _ready() -> void:
 	GlobalManager.current_area = self
 
@@ -12,8 +14,11 @@ func _ready() -> void:
 		GlobalManager.spawn_player(GlobalManager.player_list[0], spawn_point.global_position)
 
 func _on_exit_area_body_entered(body: Node2D) -> void:
-	if body is Player and GlobalManager.player_list.size() == 1:
-		GlobalManager.go_to_scene("res://Arenas/entrance.tscn")
+	#if body is Player and GlobalManager.player_list.size() == 1:
+		#GlobalManager.go_to_scene("res://Arenas/entrance.tscn")
+	if body is Player and GlobalManager.player_list.size() != 1:
+		GlobalManager.remove_player_node(body.device_id)
+		GlobalManager.remove_player(body.device_id)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if GlobalManager.player_list.size() >= GlobalManager.player_max:
@@ -36,3 +41,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		if !GlobalManager.is_device_joined("keyboard"):
 			GlobalManager.join_player("keyboard", "keyboard")
 			GlobalManager.spawn_player(GlobalManager.player_list.back(), spawn_point.global_position)
+
+
+func _on_ready_area_body_entered(body: Node2D) -> void:
+	if body is Player:
+		ready_players += 1
+		if ready_players == GlobalManager.player_list.size():
+			GlobalManager.pick_arenas()
+			GlobalManager.go_to_scene(GlobalManager.arena_selection[0])
+
+
+func _on_ready_area_body_exited(body: Node2D) -> void:
+	if body is Player and ready_players > 0:
+		ready_players -= 1

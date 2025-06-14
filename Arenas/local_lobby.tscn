@@ -1,11 +1,18 @@
-[gd_scene load_steps=6 format=4 uid="uid://cfpb0b5yi5tsm"]
+[gd_scene load_steps=13 format=4 uid="uid://cfpb0b5yi5tsm"]
 
-[ext_resource type="Script" uid="uid://dqhhd7hk8bjro" path="res://Arenas/local_lobby.gd" id="1_b13y2"]
-[ext_resource type="PackedScene" uid="uid://lpg18dynrpiy" path="res://Arenas/tile_map_layer.tscn" id="1_y5fgg"]
+[ext_resource type="Script" uid="uid://dqhhd7hk8bjro" path="res://arenas/local_lobby.gd" id="1_b13y2"]
+[ext_resource type="PackedScene" uid="uid://lpg18dynrpiy" path="res://arenas/tile_map_layer.tscn" id="1_y5fgg"]
 [ext_resource type="PackedScene" uid="uid://jupqqfv4usfg" path="res://testing/doomy.tscn" id="2_lcm5x"]
+[ext_resource type="PackedScene" uid="uid://gtjdfeyaa5fc" path="res://equipment/pickup.tscn" id="4_muedr"]
+[ext_resource type="PackedScene" uid="uid://bgiej8n0qgso7" path="res://equipment/hats/iron_helmet.tscn" id="5_xqad2"]
+[ext_resource type="PackedScene" uid="uid://bpqfadsqgyavu" path="res://equipment/weapons/sword.tscn" id="6_7r6bp"]
+[ext_resource type="PackedScene" uid="uid://3drejbn4ajuf" path="res://equipment/hats/bycoket.tscn" id="7_gn7c6"]
+[ext_resource type="PackedScene" uid="uid://281pfm68qnyq" path="res://equipment/weapons/bow.tscn" id="8_2cqta"]
+[ext_resource type="PackedScene" uid="uid://dapyfd3pmarvr" path="res://equipment/hats/pointy_hat.tscn" id="9_d4evr"]
+[ext_resource type="PackedScene" uid="uid://xgu6j5t1r3qa" path="res://equipment/weapons/rod.tscn" id="10_t7kq3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lcm5x"]
-size = Vector2(143.5, 47.5)
+size = Vector2(143.5, 42)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b13y2"]
 size = Vector2(112, 15.5)
@@ -40,6 +47,7 @@ shape = SubResource("RectangleShape2D_lcm5x")
 
 [node name="ReadyArea" type="Area2D" parent="."]
 position = Vector2(390, 7)
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ReadyArea"]
 position = Vector2(0, -1)
@@ -60,6 +68,32 @@ offset_bottom = 17.0
 text = "Ready"
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(388, 261)
+position = Vector2(388, 254)
+
+[node name="Pickup" parent="." instance=ExtResource("4_muedr")]
+position = Vector2(26, 198)
+item_scene = ExtResource("5_xqad2")
+
+[node name="Pickup2" parent="." instance=ExtResource("4_muedr")]
+position = Vector2(26, 214)
+item_scene = ExtResource("6_7r6bp")
+
+[node name="Pickup3" parent="." instance=ExtResource("4_muedr")]
+position = Vector2(46, 198)
+item_scene = ExtResource("7_gn7c6")
+
+[node name="Pickup4" parent="." instance=ExtResource("4_muedr")]
+position = Vector2(46, 215)
+item_scene = ExtResource("8_2cqta")
+
+[node name="Pickup5" parent="." instance=ExtResource("4_muedr")]
+position = Vector2(74, 198)
+item_scene = ExtResource("9_d4evr")
+
+[node name="Pickup6" parent="." instance=ExtResource("4_muedr")]
+position = Vector2(74, 215)
+item_scene = ExtResource("10_t7kq3")
 
 [connection signal="body_entered" from="ExitArea" to="." method="_on_exit_area_body_entered"]
+[connection signal="body_entered" from="ReadyArea" to="." method="_on_ready_area_body_entered"]
+[connection signal="body_exited" from="ReadyArea" to="." method="_on_ready_area_body_exited"]

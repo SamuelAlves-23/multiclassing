@@ -4,7 +4,7 @@ class_name Hurtbox
 @export var health_owner: Node  # Referencia al nodo que realmente tiene vida
 
 
-func receive_hit(damage: int, knockback: Vector2):
+func receive_hit(damage: int, _knockback: Vector2):
 	if get_parent().has_node("BarrierItem"):
 		return
 	

@@ -11,7 +11,7 @@ class_name Hat
 
 var can_use_ability := true
 
-func use_ability(owner_node):
+func use_ability(_owner_node):
 	if not can_use_ability:
 		return
 

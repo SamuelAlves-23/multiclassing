@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://burmdn5f46l1p"]
 
-[ext_resource type="Script" uid="uid://byxwvdo8egcoy" path="res://Arenas/entrance.gd" id="1_tyfhc"]
-[ext_resource type="PackedScene" uid="uid://lpg18dynrpiy" path="res://Arenas/tile_map_layer.tscn" id="2_e71j0"]
+[ext_resource type="Script" uid="uid://byxwvdo8egcoy" path="res://arenas/entrance.gd" id="1_tyfhc"]
+[ext_resource type="PackedScene" uid="uid://lpg18dynrpiy" path="res://arenas/tile_map_layer.tscn" id="2_e71j0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tyfhc"]
 size = Vector2(109, 20)

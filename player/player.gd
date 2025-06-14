@@ -4,7 +4,7 @@ class_name Player
 
 @export var player_id := 1
 @export var input_mode: String = ""
-@export var device_id: int = -1
+@export var device_id = -1
 @export var speed := 200.0
 @export var move_speed: float = 125.0
 const DEADZONE: float = 0.2
@@ -24,11 +24,11 @@ var direction
 func _ready():
 	health.connect("died", die)
 
-func _process(delta):
+func _process(_delta):
 	if is_multiplayer_authority():
 		capture_input()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	move()
 	update_aim()
 
@@ -137,10 +137,9 @@ func die():
 	queue_free()
 
 func drop(item) -> void:
-	var arena = get_tree().get_first_node_in_group("Arena")
 	var pick_up_scene: Pickup = GlobalManager.pickup_node.instantiate()
 	pick_up_scene.item_scene = ResourceLoader.load(item.scene_file_path)
-	arena.add_child(pick_up_scene)
+	GlobalManager.current_area.add_child(pick_up_scene)
 	pick_up_scene.global_position = global_position
 
 func update_hat_reference()-> void:

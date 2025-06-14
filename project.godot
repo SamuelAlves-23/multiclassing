@@ -31,6 +31,7 @@ window/dpi/allow_hidpi=false
 [global_group]
 
 Arena=""
+Players=""
 
 [input]
 

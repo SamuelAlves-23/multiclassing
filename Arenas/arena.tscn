@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://chjesqh1wx5jm"]
 
-[ext_resource type="Script" uid="uid://dkxhh535cfxwc" path="res://Arenas/arena.gd" id="1_4kkwr"]
-[ext_resource type="PackedScene" uid="uid://lpg18dynrpiy" path="res://Arenas/tile_map_layer.tscn" id="2_pb4r7"]
+[ext_resource type="Script" uid="uid://dkxhh535cfxwc" path="res://arenas/arena.gd" id="1_4kkwr"]
+[ext_resource type="PackedScene" uid="uid://lpg18dynrpiy" path="res://arenas/tile_map_layer.tscn" id="2_pb4r7"]
 [ext_resource type="PackedScene" uid="uid://jupqqfv4usfg" path="res://testing/doomy.tscn" id="4_n7d4a"]
 [ext_resource type="PackedScene" uid="uid://gtjdfeyaa5fc" path="res://equipment/pickup.tscn" id="5_pb4r7"]
 [ext_resource type="PackedScene" uid="uid://bpqfadsqgyavu" path="res://equipment/weapons/sword.tscn" id="5_q76kk"]
