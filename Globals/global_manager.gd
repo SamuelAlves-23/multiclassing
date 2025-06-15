@@ -2,6 +2,7 @@ extends Node
 
 @onready var pickup_node: PackedScene = preload("res://equipment/pickup.tscn")
 @onready var player_node: PackedScene = preload("res://player/player.tscn")
+@onready var podium: String = "res://arenas/podium.tscn"
 @onready var arenas_dir: String = "res://arenas/combat_arenas/arena_scenes/"
 @onready var player_amount: int
 
@@ -13,8 +14,6 @@ extends Node
 var current_area
 var remaining_players: int
 
-func _ready() -> void:
-	player_list.sort_custom(Callable(self, "_sort_by_score"))
 
 func go_to_scene(new_scene: String) -> void:
 	get_tree().change_scene_to_file(new_scene)
@@ -64,10 +63,15 @@ func remove_player_node(device_id):
 	print("No se encontró nodo Player con device_id:", device_id)
 
 func pick_arenas():
+	reset_scores()
 	var arenas: Array = DirAccess.open(arenas_dir).get_files()
 	for i in range(rounds):
 		var new_arena: String = arenas_dir + arenas.pick_random()
 		arena_selection.append(new_arena)
+
+func reset_scores():
+	for player in player_list:
+		player.score = 0
 
 func player_died(device_id):
 	score_points(device_id)
@@ -80,17 +84,20 @@ func player_died(device_id):
 
 func next_arena():
 	if arena_selection.size() != 0:
+		for player in player_list:
+			player.alive = true
 		go_to_scene(arena_selection.pop_front())
 		remaining_players = player_list.size()
 		return
 	print("RANKING FINAL")
+	player_list.sort_custom(Callable(self, "_sort_by_score"))
 	for i in range(player_list.size()):
 		var p = player_list[i]
 		print("%dº - Player %s (%s) - %d puntos" % [i + 1, str(p.device_id), p.input_mode, p.score])
-		
+	go_to_scene(podium)
 		
 func _sort_by_score(a, b):
-	return b["score:"] - a["score"]
+	return b["score"] - a["score"]
 
 func score_points(device_id):
 	for player in player_list:
