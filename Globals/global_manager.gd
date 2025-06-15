@@ -11,6 +11,10 @@ extends Node
 @export var rounds: int = 3
 
 var current_area
+var remaining_players: int
+
+func _ready() -> void:
+	player_list.sort_custom(Callable(self, "_sort_by_score"))
 
 func go_to_scene(new_scene: String) -> void:
 	get_tree().change_scene_to_file(new_scene)
@@ -25,13 +29,16 @@ func is_device_joined(device_id) -> bool:
 func join_player(input_mode: String, device_id):
 	var player_data = {
 		"input_mode": input_mode,
-		"device_id": device_id
+		"device_id": device_id,
+		"score": 0,
+		"alive": true
 	}
 	player_list.append(player_data)
 
 
 func spawn_player(player, position: Vector2):
 	var player_instance : Player = player_node.instantiate()
+	player_instance.died.connect(player_died)
 	player_instance.input_mode = player.input_mode
 	player_instance.device_id = player.device_id
 	player_instance.global_position = position
@@ -60,5 +67,34 @@ func pick_arenas():
 	var arenas: Array = DirAccess.open(arenas_dir).get_files()
 	for i in range(rounds):
 		var new_arena: String = arenas_dir + arenas.pick_random()
-		
 		arena_selection.append(new_arena)
+
+func player_died(device_id):
+	score_points(device_id)
+	remaining_players -=1
+	if remaining_players == 1:
+		for player in player_list:
+			if player.alive:
+				score_points(player.device_id)
+		next_arena()
+
+func next_arena():
+	if arena_selection.size() != 0:
+		go_to_scene(arena_selection.pop_front())
+		remaining_players = player_list.size()
+		return
+	print("RANKING FINAL")
+	for i in range(player_list.size()):
+		var p = player_list[i]
+		print("%dº - Player %s (%s) - %d puntos" % [i + 1, str(p.device_id), p.input_mode, p.score])
+		
+		
+func _sort_by_score(a, b):
+	return b["score:"] - a["score"]
+
+func score_points(device_id):
+	for player in player_list:
+		if typeof(player.device_id) == typeof(device_id) and player.device_id == device_id:
+			player.score += (player_list.size() - remaining_players)
+			player.alive = false
+			return

@@ -48,7 +48,7 @@ func _on_ready_area_body_entered(body: Node2D) -> void:
 		ready_players += 1
 		if ready_players == GlobalManager.player_list.size():
 			GlobalManager.pick_arenas()
-			GlobalManager.go_to_scene(GlobalManager.arena_selection[0])
+			GlobalManager.next_arena()
 
 
 func _on_ready_area_body_exited(body: Node2D) -> void:

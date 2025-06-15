@@ -1,6 +1,14 @@
 extends CharacterBody2D
 class_name Player
 
+signal died(device_id)
+
+enum PLAYER_STATES{
+	ALIVE,
+	DEAD
+}
+
+@onready var current_state = PLAYER_STATES.ALIVE
 
 @export var player_id := 1
 @export var input_mode: String = ""
@@ -13,6 +21,10 @@ const DEADZONE: float = 0.2
 @onready var body_sprite = $Sprite2D
 @onready var weapon_holder = $WeaponHolder
 @onready var hat_holder = $HatHolder
+@onready var dead_sprite = $DeadSprite
+@onready var hurtbox_shape: CollisionShape2D = $Hurtbox/CollisionShape2D
+@onready var sprite:Sprite2D = $Sprite2D
+@onready var cshape: CollisionShape2D = $CollisionShape2D
 
 var input_direction := Vector2.ZERO
 var equipped_weapon: Weapon = null
@@ -29,8 +41,12 @@ func _process(_delta):
 		capture_input()
 
 func _physics_process(_delta):
-	move()
-	update_aim()
+	match current_state:
+		PLAYER_STATES.ALIVE:
+			move()
+			update_aim()
+		PLAYER_STATES.DEAD:
+			pass
 
 func capture_input():
 	var dir = Vector2.ZERO
@@ -116,7 +132,6 @@ func update_aim():
 func equip_weapon(weapon_instance: Weapon):
 	if equipped_weapon:
 		drop(equipped_weapon)
-		equipped_weapon.queue_free()
 	equipped_weapon = weapon_instance
 	weapon_holder.add_child(equipped_weapon)
 	equipped_weapon.player_owner = self
@@ -126,7 +141,6 @@ func equip_weapon(weapon_instance: Weapon):
 func equip_hat(hat_instance: Hat):
 	if equipped_hat:
 		drop(equipped_hat)
-		equipped_hat.queue_free()
 	equipped_hat = hat_instance
 	hat_holder.add_child(equipped_hat)
 	equipped_hat.player_owner = self
@@ -134,13 +148,44 @@ func equip_hat(hat_instance: Hat):
 		update_hat_reference()
 
 func die():
-	queue_free()
+	current_state = PLAYER_STATES.DEAD
+	sprite.hide()
+	health.hide()
+	dead_sprite.show()
+	if equipped_hat != null:
+		drop(equipped_hat)
+	if equipped_weapon != null:
+		drop(equipped_weapon)
+	hurtbox_shape.disabled = true
+	cshape.disabled = true
+	died.emit(device_id)
+	
 
 func drop(item) -> void:
 	var pick_up_scene: Pickup = GlobalManager.pickup_node.instantiate()
 	pick_up_scene.item_scene = ResourceLoader.load(item.scene_file_path)
 	GlobalManager.current_area.add_child(pick_up_scene)
 	pick_up_scene.global_position = global_position
+
+	# 🎯 Generar impulso visual aleatorio
+	var jump_distance = randf_range(20, 40)
+	var jump_angle = randf_range(-PI / 3, PI / 3)  # -60° a +60°
+	var impulse = Vector2.RIGHT.rotated(jump_angle) * jump_distance
+	var end_pos = pick_up_scene.global_position + impulse
+
+	# ✨ Animar con Tween (rebote hacia adelante)
+	var tween := get_tree().create_tween()
+	tween.tween_property(pick_up_scene, "global_position", end_pos, 0.2)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.chain().tween_property(pick_up_scene, "global_position", end_pos + Vector2(0, 6), 0.1)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+
+	# 🧹 Liberar el objeto del jugador
+	if equipped_hat == item:
+		equipped_hat.queue_free()
+	elif equipped_weapon == item:
+		equipped_weapon.queue_free()
+
 
 func update_hat_reference()-> void:
 	if "animator" in equipped_hat.ability:

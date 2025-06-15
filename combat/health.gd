@@ -1,8 +1,9 @@
-extends Node
+extends Node2D
 class_name Health
 
 @export var max_health: int = 3
 var current_health: int
+var dead: bool = false
 
 @onready var heart01: Sprite2D = $Heart01
 @onready var heart02: Sprite2D = $Heart02
@@ -18,7 +19,8 @@ func apply_damage(amount: int):
 	current_health -= amount
 	draw_health()
 	emit_signal("health_changed", current_health)
-	if current_health <= 0:
+	if current_health <= 0 and !dead:
+		dead = true
 		die()
 
 func heal(amount: int):

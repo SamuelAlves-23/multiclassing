@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bnysxce4o25se" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="PackedScene" uid="uid://da4sf7hg5kkqj" path="res://combat/health.tscn" id="3_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://dkdq0pqlic845" path="res://combat/hurtbox.tscn" id="4_yw30f"]
-[ext_resource type="Texture2D" uid="uid://dg7mjlhkj6oiq" path="res://placeholders/Cursor_marker.png" id="5_qjkh3"]
+[ext_resource type="Texture2D" uid="uid://co24dde23656d" path="res://placeholders/DeadSprite.png" id="5_qjkh3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
 size = Vector2(6, 5)
@@ -39,10 +39,8 @@ health_owner = NodePath("../Health")
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_qjkh3")
 
-[node name="Cursor" type="Node2D" parent="."]
+[node name="DeadSprite" type="Sprite2D" parent="."]
 visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="Cursor"]
 texture = ExtResource("5_qjkh3")
 
 [editable path="Hurtbox"]
