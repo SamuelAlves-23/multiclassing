@@ -12,7 +12,11 @@ func _ready():
 	connect("area_entered", Callable(self, "_on_area_entered"))
 
 func _on_area_entered(area):
-	print("Entramos")
 	if area is Hurtbox:
+		if "trapped" in area.get_parent():
+			if area.get_parent().trapped and get_parent().name == "Arrow":
+				area.receive_hit(3, knockback_force)
+				return
+			
 		area.receive_hit(damage, knockback_force)
 		#queue_free()

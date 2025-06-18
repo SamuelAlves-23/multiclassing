@@ -19,6 +19,7 @@ _data = {
 [node name="Bow" type="Node2D"]
 script = ExtResource("1_ppv64")
 proyectile = ExtResource("2_o7xsq")
+attack_damage = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(5, 0)
