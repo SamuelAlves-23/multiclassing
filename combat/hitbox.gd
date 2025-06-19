@@ -18,5 +18,5 @@ func _on_area_entered(area):
 				area.receive_hit(3, knockback_force)
 				return
 			
-		area.receive_hit(damage, knockback_force)
+		area.receive_hit(get_parent().damage, knockback_force)
 		#queue_free()

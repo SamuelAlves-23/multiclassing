@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=4 uid="uid://cfpb0b5yi5tsm"]
 
-[ext_resource type="Script" uid="uid://dqhhd7hk8bjro" path="res://arenas/local_lobby.gd" id="1_b13y2"]
-[ext_resource type="PackedScene" uid="uid://lpg18dynrpiy" path="res://arenas/tile_map_layer.tscn" id="1_y5fgg"]
+[ext_resource type="Script" uid="uid://dqhhd7hk8bjro" path="res://Arenas/local_lobby.gd" id="1_b13y2"]
+[ext_resource type="PackedScene" uid="uid://lpg18dynrpiy" path="res://Arenas/tile_map_layer.tscn" id="1_y5fgg"]
 [ext_resource type="PackedScene" uid="uid://jupqqfv4usfg" path="res://testing/doomy.tscn" id="2_lcm5x"]
 [ext_resource type="PackedScene" uid="uid://gtjdfeyaa5fc" path="res://equipment/pickup.tscn" id="4_muedr"]
 [ext_resource type="PackedScene" uid="uid://bgiej8n0qgso7" path="res://equipment/hats/iron_helmet.tscn" id="5_xqad2"]

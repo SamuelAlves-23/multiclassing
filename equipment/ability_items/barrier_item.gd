@@ -2,6 +2,7 @@ extends Node2D
 
 signal hit_blocked
 signal disapeared
+signal proyectile_deflected
 
 @export var duration: int = 2
 
@@ -16,7 +17,8 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		
 		if player_owner.equipped_weapon != null:
 			if player_owner.equipped_weapon.name == "Bow":
-				player_owner.equipped_weapon.fire_proyectile()
+				area.get_parent().direction = - area.get_parent().direction
+				proyectile_deflected.emit()
 		
 		hit_blocked.emit()
 		disapear()
