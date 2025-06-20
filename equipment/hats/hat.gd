@@ -16,11 +16,12 @@ func use_ability(_owner_node):
 		return
 
 	can_use_ability = false
-	
+	sprite.modulate.a = 0.5
 	print("Usando habilidad del sombrero: %s" % ability_name)
 	
 	ability.effect()
 	
 	# Esperar cooldown
 	await get_tree().create_timer(cooldown).timeout
+	sprite.modulate.a = 1
 	can_use_ability = true

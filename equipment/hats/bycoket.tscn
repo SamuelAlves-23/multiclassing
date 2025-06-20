@@ -6,7 +6,7 @@
 
 [node name="Bycoket" type="Node2D"]
 script = ExtResource("1_7mrgr")
-cooldown = 1.0
+cooldown = 3.0
 ability_name = "Drop trap"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
