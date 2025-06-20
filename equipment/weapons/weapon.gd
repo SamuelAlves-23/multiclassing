@@ -4,7 +4,7 @@ class_name Weapon
 @export var proyectile: PackedScene
 @export var auto: bool = false
 @export var attack_cooldown: float = 0.5
-@export var attack_damage: int = 1
+@export var damage: int = 1
 @export var player_owner: Player
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -27,6 +27,12 @@ func perform_attack(_target_dir: Vector2):
 	if proyectile != null:
 		fire_proyectile()
 	else:
+		if !auto:
+			if player_owner.equipped_hat != null:
+				if name == "Sword" and player_owner.equipped_hat.name == "PointyHat":
+					magic_sword()
+					
+
 		animator.play("Attack")
 
 	print("¡Ataque realizado!")
@@ -134,3 +140,9 @@ func spawn_projectile(dir: Vector2, duration: Variant = null):
 func update_dir():
 	if player_owner != null:
 		last_attack_dir = player_owner.last_attack_direction.normalized()
+
+func magic_sword():
+	position.x += 32
+	await get_tree().create_timer(0.2).timeout
+	position.x -= 32
+	

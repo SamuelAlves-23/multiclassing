@@ -8,6 +8,7 @@ extends Ability
 func effect():
 	print("SOLTANDO TRAMPA")
 	var trap_instance = trap_node.instantiate()
+	trap_instance.player_owner = get_parent().get_parent().get_parent()
 	trap_references.append(trap_instance)
 	if trap_references.size() >= 4:
 		var oldest_trap = trap_references.pop_front()
