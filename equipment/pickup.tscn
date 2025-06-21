@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://gtjdfeyaa5fc"]
+[gd_scene load_steps=4 format=3 uid="uid://gtjdfeyaa5fc"]
 
 [ext_resource type="Script" uid="uid://d50rgm6tevbw" path="res://equipment/pickup.gd" id="1_ip6u4"]
+[ext_resource type="AudioStream" uid="uid://2lh0t7kbtf7r" path="res://audio/pickup.mp3" id="2_8xoy8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ip6u4"]
 size = Vector2(6, 6)
@@ -14,5 +15,8 @@ script = ExtResource("1_ip6u4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ip6u4")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_8xoy8")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

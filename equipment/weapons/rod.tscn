@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://xgu6j5t1r3qa"]
+[gd_scene load_steps=8 format=3 uid="uid://xgu6j5t1r3qa"]
 
 [ext_resource type="Script" uid="uid://ccxnp5lfvldfr" path="res://equipment/weapons/weapon.gd" id="1_y2oxk"]
 [ext_resource type="PackedScene" uid="uid://ts3dd8a1ohy1" path="res://equipment/weapons/proyectiles/fireball.tscn" id="2_j27jw"]
 [ext_resource type="Texture2D" uid="uid://bjsg1ci6al8yn" path="res://placeholders/Rod.png" id="2_s1fl4"]
+[ext_resource type="AudioStream" uid="uid://cq8dcid0ao6qt" path="res://audio/fireball.mp3" id="4_v0tb7"]
 
 [sub_resource type="Animation" id="Animation_j27jw"]
 resource_name = "Attack"
@@ -61,3 +62,6 @@ libraries = {
 
 [node name="ProyectileSpawner" type="Marker2D" parent="."]
 position = Vector2(14, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_v0tb7")

@@ -2,7 +2,9 @@ extends Area2D
 class_name Pickup
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 @onready var pickable: bool = false
+
 
 @export var item_scene: PackedScene
 @export var path: String
@@ -26,5 +28,5 @@ func _on_body_entered(body: Node2D) -> void:
 			body.equip_weapon(item)
 		elif "hats" in path:
 			body.equip_hat(item)
-
+		audio_player.play()
 		queue_free()

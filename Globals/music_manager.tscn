@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6xlcbgojjgsl"]
+
+[ext_resource type="Script" uid="uid://dlc1seaoms4fs" path="res://Globals/music_manager.gd" id="1_75ytp"]
+
+[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_75ytp"]
+loop = true
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_75ytp")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMP3_75ytp")
+autoplay = true

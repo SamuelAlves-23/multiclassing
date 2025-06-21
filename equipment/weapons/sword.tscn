@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpqfadsqgyavu"]
+[gd_scene load_steps=12 format=3 uid="uid://bpqfadsqgyavu"]
 
 [ext_resource type="Texture2D" uid="uid://b2w0d3ylmtq6x" path="res://placeholders/Weapon.png" id="1_e6qyl"]
 [ext_resource type="Script" uid="uid://ccxnp5lfvldfr" path="res://equipment/weapons/weapon.gd" id="1_vn4aw"]
 [ext_resource type="Texture2D" uid="uid://dia84rbgjhhd1" path="res://placeholders/Weapon_attack.png" id="3_v6l4n"]
 [ext_resource type="PackedScene" uid="uid://cqcceawkts5l" path="res://combat/hitbox.tscn" id="4_pel8t"]
+[ext_resource type="AudioStream" uid="uid://cttjifx43xlt" path="res://audio/sword_swing.mp3" id="5_beglp"]
 
 [sub_resource type="Animation" id="Animation_vn4aw"]
 resource_name = "Attack"
@@ -226,6 +227,9 @@ position = Vector2(16, 0)
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource("CapsuleShape2D_beglp")
 disabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_beglp")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 

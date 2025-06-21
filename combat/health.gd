@@ -8,6 +8,8 @@ var dead: bool = false
 @onready var heart01: Sprite2D = $Heart01
 @onready var heart02: Sprite2D = $Heart02
 @onready var heart03: Sprite2D = $Heart03
+@onready var hurt_sound: AudioStreamPlayer = $HurtSound
+@onready var death_sound: AudioStreamPlayer = $DeathSound
 
 signal health_changed(current_health: int)
 signal died()
@@ -16,6 +18,7 @@ func _ready():
 	current_health = max_health
 
 func apply_damage(amount: int):
+	hurt_sound.play()
 	current_health -= amount
 	draw_health()
 	emit_signal("health_changed", current_health)
@@ -29,6 +32,7 @@ func heal(amount: int):
 	emit_signal("health_changed", current_health)
 
 func die():
+	death_sound.play()
 	emit_signal("died")
 	# Podés agregar lógica específica de muerte aquí, o hacerla desde afuera
 

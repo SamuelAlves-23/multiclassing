@@ -9,6 +9,7 @@ class_name Weapon
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animator: AnimationPlayer = $AnimationPlayer
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 
 var can_attack: bool = true
 var last_attack_dir: Vector2 = Vector2.RIGHT
@@ -25,6 +26,7 @@ func perform_attack(_target_dir: Vector2):
 	can_attack = false
 	update_dir()
 	if proyectile != null:
+		audio_player.play()
 		fire_proyectile()
 	else:
 		if !auto:
@@ -32,7 +34,7 @@ func perform_attack(_target_dir: Vector2):
 				if name == "Sword" and player_owner.equipped_hat.name == "PointyHat":
 					magic_sword()
 					
-
+		audio_player.play()
 		animator.play("Attack")
 
 	print("¡Ataque realizado!")

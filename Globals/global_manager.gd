@@ -14,7 +14,6 @@ extends Node
 var current_area
 var remaining_players: int
 
-
 func go_to_scene(new_scene: String) -> void:
 	get_tree().change_scene_to_file(new_scene)
 
@@ -86,6 +85,7 @@ func next_arena():
 	if arena_selection.size() != 0:
 		for player in player_list:
 			player.alive = true
+		MusicManager.change_music_battle()
 		go_to_scene(arena_selection.pop_front())
 		remaining_players = player_list.size()
 		return
@@ -94,6 +94,7 @@ func next_arena():
 	for i in range(player_list.size()):
 		var p = player_list[i]
 		print("%dº - Player %s (%s) - %d puntos" % [i + 1, str(p.device_id), p.input_mode, p.score])
+	MusicManager.change_music_lobby()
 	go_to_scene(podium)
 		
 func _sort_by_score(a, b):

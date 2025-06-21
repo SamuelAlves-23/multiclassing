@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://da4sf7hg5kkqj"]
+[gd_scene load_steps=5 format=3 uid="uid://da4sf7hg5kkqj"]
 
 [ext_resource type="Script" uid="uid://bxinhp1fr5rjv" path="res://combat/health.gd" id="1_b2jbs"]
 [ext_resource type="Texture2D" uid="uid://bnmwdee0xa1ev" path="res://placeholders/Heart.png" id="2_nx3lx"]
+[ext_resource type="AudioStream" uid="uid://dkv77brdunfsc" path="res://audio/hit.mp3" id="3_s5dqa"]
+[ext_resource type="AudioStream" uid="uid://dvm281b1mtshl" path="res://audio/death.mp3" id="4_k22wb"]
 
 [node name="Health" type="Node2D"]
 script = ExtResource("1_b2jbs")
@@ -20,3 +22,9 @@ hframes = 2
 position = Vector2(11, -5)
 texture = ExtResource("2_nx3lx")
 hframes = 2
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_s5dqa")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_k22wb")
