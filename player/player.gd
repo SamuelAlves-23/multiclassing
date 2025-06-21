@@ -50,18 +50,16 @@ func _physics_process(_delta):
 
 func capture_input():
 	var dir = Vector2.ZERO
-	var attack_dir = Vector2.ZERO
-	var should_attack = false
+	var attack_input := Vector2.ZERO
+	var should_attack := false
 
 	if input_mode == "keyboard":
 		dir = Vector2(
 			Input.get_action_strength("move_right_p1") - Input.get_action_strength("move_left_p1"),
 			Input.get_action_strength("move_down_p1") - Input.get_action_strength("move_up_p1")
 		)
-		
-		# ✅ Actualizamos siempre la dirección, no solo al atacar
-		attack_dir = (get_global_mouse_position() - global_position).normalized()
-		last_attack_direction = attack_dir
+
+		attack_input = (get_global_mouse_position() - global_position).normalized()
 
 		if Input.is_action_just_pressed("attack_p1"):
 			should_attack = true
@@ -82,32 +80,31 @@ func capture_input():
 		)
 
 		if joy_right.length() > DEADZONE:
-			last_attack_direction = joy_right.normalized()
+			attack_input = joy_right.normalized()
 			should_attack = true
 		else:
-			if Input.is_joy_button_pressed(device_id, JOY_BUTTON_DPAD_UP):
-				last_attack_direction = Vector2.UP
-				should_attack = true
-			elif Input.is_joy_button_pressed(device_id, JOY_BUTTON_DPAD_DOWN):
-				last_attack_direction = Vector2.DOWN
-				should_attack = true
-			elif Input.is_joy_button_pressed(device_id, JOY_BUTTON_DPAD_LEFT):
-				last_attack_direction = Vector2.LEFT
-				should_attack = true
-			elif Input.is_joy_button_pressed(device_id, JOY_BUTTON_DPAD_RIGHT):
-				last_attack_direction = Vector2.RIGHT
-				should_attack = true
+			if Input.is_joy_button_pressed(device_id, JOY_BUTTON_Y): attack_input.y -= 1
+			if Input.is_joy_button_pressed(device_id, JOY_BUTTON_A): attack_input.y += 1
+			if Input.is_joy_button_pressed(device_id, JOY_BUTTON_X): attack_input.x -= 1
+			if Input.is_joy_button_pressed(device_id, JOY_BUTTON_B): attack_input.x += 1
 
-		if joy_right.length() > DEADZONE:
-			last_attack_direction = joy_right.normalized()
+			if attack_input != Vector2.ZERO:
+				attack_input = attack_input.normalized()
+				should_attack = true
 
 		if Input.is_joy_button_pressed(device_id, JOY_BUTTON_LEFT_SHOULDER) and equipped_hat:
 			equipped_hat.use_ability(self)
 
+	# Movimiento
 	input_direction = dir.normalized() if dir != Vector2.ZERO else Vector2.ZERO
 
-	if should_attack and equipped_weapon:
-		equipped_weapon.perform_attack(last_attack_direction)
+	# ✅ Realizar ataque con la dirección actual sin depender de last_attack_direction
+	if should_attack and equipped_weapon and attack_input != Vector2.ZERO:
+		equipped_weapon.perform_attack(attack_input)
+
+	# 🎯 Actualizar la dirección visual solo después del ataque
+	if attack_input != Vector2.ZERO:
+		last_attack_direction = attack_input
 
 func move():
 	if !trapped:

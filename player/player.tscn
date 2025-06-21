@@ -16,14 +16,20 @@ size = Vector2(10, 12)
 collision_layer = 2
 script = ExtResource("1_rkbax")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_rkbax")
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_owner") instance=ExtResource("4_yw30f")]
+health_owner = NodePath("../Health")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_qjkh3")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_oul6g")
 hframes = 4
 vframes = 12
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
-shape = SubResource("RectangleShape2D_rkbax")
 
 [node name="WeaponHolder" type="Node2D" parent="."]
 
@@ -33,14 +39,10 @@ position = Vector2(0, -7)
 [node name="HatHolder" type="Node2D" parent="."]
 position = Vector2(0, -4)
 
-[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_owner") instance=ExtResource("4_yw30f")]
-health_owner = NodePath("../Health")
-
-[node name="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource("RectangleShape2D_qjkh3")
-
 [node name="DeadSprite" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("5_qjkh3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [editable path="Hurtbox"]
