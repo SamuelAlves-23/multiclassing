@@ -14,8 +14,6 @@ script = ExtResource("1_if1b8")
 texture = ExtResource("1_m0jpl")
 
 [node name="Hitbox" parent="." instance=ExtResource("3_if1b8")]
-damage = null
-knockback_force = null
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource("CircleShape2D_cr2fw")

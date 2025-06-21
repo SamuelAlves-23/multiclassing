@@ -12,8 +12,9 @@ var target_player: Player = null
 
 
 func _ready():
-	if name == "Fireball" and player_owner.equipped_hat.name == "Bycoket":
-		find_trapped_target()
+	if player_owner.equipped_hat != null:
+		if name == "Fireball" and player_owner.equipped_hat.name == "Bycoket":
+			find_trapped_target()
 	rotation = direction.angle()
 	# Auto-destrucción en X segundos
 	await get_tree().create_timer(lifetime).timeout

@@ -20,3 +20,8 @@ func _on_area_entered(area):
 			
 		area.receive_hit(get_parent().damage, knockback_force)
 		#queue_free()
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if get_parent() is Proyectile:
+		get_parent().queue_free()
