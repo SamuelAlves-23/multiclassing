@@ -3,7 +3,7 @@ class_name Player
 
 signal died(device_id)
 
-enum PLAYER_STATES{
+enum PLAYER_STATES {
 	ALIVE,
 	DEAD
 }
@@ -23,13 +23,14 @@ const DEADZONE: float = 0.2
 @onready var hat_holder = $HatHolder
 @onready var dead_sprite = $DeadSprite
 @onready var hurtbox_shape: CollisionShape2D = $Hurtbox/CollisionShape2D
-@onready var sprite:Sprite2D = $Sprite2D
+@onready var sprite: Sprite2D = $Sprite2D
 @onready var cshape: CollisionShape2D = $CollisionShape2D
+@onready var animator: AnimationPlayer = $AnimationPlayer
 
 var input_direction := Vector2.ZERO
 var equipped_weapon: Weapon = null
 var equipped_hat: Hat = null
-var last_attack_direction: Vector2 = Vector2.RIGHT  # Dirección por defecto
+var last_attack_direction: Vector2 = Vector2.RIGHT
 var trapped: bool = false
 var direction
 
@@ -95,21 +96,42 @@ func capture_input():
 		if Input.is_joy_button_pressed(device_id, JOY_BUTTON_LEFT_SHOULDER) and equipped_hat:
 			equipped_hat.use_ability(self)
 
-	# Movimiento
 	input_direction = dir.normalized() if dir != Vector2.ZERO else Vector2.ZERO
 
-	# ✅ Realizar ataque con la dirección actual sin depender de last_attack_direction
 	if should_attack and equipped_weapon and attack_input != Vector2.ZERO:
 		equipped_weapon.perform_attack(attack_input)
 
-	# 🎯 Actualizar la dirección visual solo después del ataque
 	if attack_input != Vector2.ZERO:
 		last_attack_direction = attack_input
 
 func move():
-	if !trapped:
-		velocity = input_direction * move_speed
-		move_and_slide()
+	if trapped:
+		velocity = Vector2.ZERO
+		animator.play("idle")
+		return
+
+	velocity = input_direction * move_speed
+	move_and_slide()
+
+	if input_direction != Vector2.ZERO:
+		if abs(input_direction.x) > abs(input_direction.y):
+			# Movimiento horizontal
+			if input_direction.x > 0:
+				animator.play("move_right")
+				body_sprite.flip_h = false
+			else:
+				animator.play("move_right")
+				body_sprite.flip_h = true
+		else:
+			# Movimiento vertical
+			body_sprite.flip_h = false  # sin flip en vertical
+			if input_direction.y > 0:
+				animator.play("move_down")
+			else:
+				animator.play("move_up")
+	else:
+		animator.play("idle")
+
 
 func update_aim():
 	direction = Vector2.ZERO
@@ -117,13 +139,9 @@ func update_aim():
 	if input_mode == "keyboard":
 		direction = get_global_mouse_position() - global_position
 	elif input_mode == "gamepad":
-		# Usar la última dirección válida guardada
 		direction = last_attack_direction
 
-	# Flip del cuerpo
 	body_sprite.flip_h = direction.x < 0
-
-	# Rotación del arma
 	weapon_holder.rotation = direction.angle()
 
 func equip_weapon(weapon_instance: Weapon):
@@ -156,7 +174,6 @@ func die():
 	hurtbox_shape.disabled = true
 	cshape.disabled = true
 	died.emit(device_id)
-	
 
 func drop(item) -> void:
 	var pick_up_scene: Pickup = GlobalManager.pickup_node.instantiate()
@@ -164,27 +181,23 @@ func drop(item) -> void:
 	GlobalManager.current_area.add_child(pick_up_scene)
 	pick_up_scene.global_position = global_position
 
-	# 🎯 Generar impulso visual aleatorio
 	var jump_distance = randf_range(20, 40)
-	var jump_angle = randf_range(-PI / 3, PI / 3)  # -60° a +60°
+	var jump_angle = randf_range(-PI / 3, PI / 3)
 	var impulse = Vector2.RIGHT.rotated(jump_angle) * jump_distance
 	var end_pos = pick_up_scene.global_position + impulse
 
-	# ✨ Animar con Tween (rebote hacia adelante)
 	var tween := get_tree().create_tween()
 	tween.tween_property(pick_up_scene, "global_position", end_pos, 0.2)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.chain().tween_property(pick_up_scene, "global_position", end_pos + Vector2(0, 6), 0.1)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
-	# 🧹 Liberar el objeto del jugador
 	if equipped_hat == item:
 		equipped_hat.queue_free()
 	elif equipped_weapon == item:
 		equipped_weapon.queue_free()
 
-
-func update_hat_reference()-> void:
+func update_hat_reference() -> void:
 	if "animator" in equipped_hat.ability:
 		equipped_hat.ability.animator = equipped_weapon.animator
 
