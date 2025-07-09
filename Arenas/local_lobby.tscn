@@ -94,10 +94,6 @@ item_scene = ExtResource("9_d4evr")
 position = Vector2(74, 215)
 item_scene = ExtResource("10_t7kq3")
 
-[node name="Sword" parent="." instance=ExtResource("6_7r6bp")]
-position = Vector2(23, 123)
-auto = true
-
 [connection signal="body_entered" from="ExitArea" to="." method="_on_exit_area_body_entered"]
 [connection signal="body_entered" from="ReadyArea" to="." method="_on_ready_area_body_entered"]
 [connection signal="body_exited" from="ReadyArea" to="." method="_on_ready_area_body_exited"]
