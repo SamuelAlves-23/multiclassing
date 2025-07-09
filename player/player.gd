@@ -16,6 +16,7 @@ enum PLAYER_STATES {
 @export var speed := 200.0
 @export var move_speed: float = 125.0
 const DEADZONE: float = 0.2
+const ATTACK_DEADZONE: float = 0.25
 
 @onready var health: Health = $Health
 @onready var body_sprite = $Sprite2D
@@ -60,7 +61,9 @@ func capture_input():
 			Input.get_action_strength("move_down_p1") - Input.get_action_strength("move_up_p1")
 		)
 
-		attack_input = (get_global_mouse_position() - global_position).normalized()
+		var mouse_direction = (get_global_mouse_position() - global_position)
+		if mouse_direction.length() > 1:
+			attack_input = mouse_direction.normalized()
 
 		if Input.is_action_just_pressed("attack_p1"):
 			should_attack = true
@@ -80,7 +83,7 @@ func capture_input():
 			Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_Y)
 		)
 
-		if joy_right.length() > DEADZONE:
+		if joy_right.length() >= ATTACK_DEADZONE:
 			attack_input = joy_right.normalized()
 			should_attack = true
 		else:
@@ -96,13 +99,16 @@ func capture_input():
 		if Input.is_joy_button_pressed(device_id, JOY_BUTTON_LEFT_SHOULDER) and equipped_hat:
 			equipped_hat.use_ability(self)
 
-	input_direction = dir.normalized() if dir != Vector2.ZERO else Vector2.ZERO
+	input_direction = dir.normalized() if dir.length() > 0 else Vector2.ZERO
+
+	# ✅ Actualizar dirección y rotación antes de disparar
+	if attack_input.length() > 0.1:
+		last_attack_direction = attack_input
+		if equipped_weapon:
+			weapon_holder.rotation = attack_input.angle()
 
 	if should_attack and equipped_weapon and attack_input != Vector2.ZERO:
 		equipped_weapon.perform_attack(attack_input)
-
-	if attack_input != Vector2.ZERO:
-		last_attack_direction = attack_input
 
 func move():
 	if trapped:
@@ -110,36 +116,31 @@ func move():
 		animator.play("idle")
 		return
 
-	velocity = input_direction * move_speed
-	move_and_slide()
-
 	if input_direction != Vector2.ZERO:
+		velocity = input_direction * move_speed
+		move_and_slide()
+
 		if abs(input_direction.x) > abs(input_direction.y):
-			# Movimiento horizontal
-			if input_direction.x > 0:
-				animator.play("move_right")
-				body_sprite.flip_h = false
-			else:
-				animator.play("move_right")
-				body_sprite.flip_h = true
+			animator.play("move_right")
+			body_sprite.flip_h = input_direction.x < 0
 		else:
-			# Movimiento vertical
-			body_sprite.flip_h = false  # sin flip en vertical
+			body_sprite.flip_h = false
 			if input_direction.y > 0:
 				animator.play("move_down")
 			else:
 				animator.play("move_up")
 	else:
+		velocity = Vector2.ZERO
 		animator.play("idle")
 
-
 func update_aim():
-	direction = Vector2.ZERO
-
 	if input_mode == "keyboard":
 		direction = get_global_mouse_position() - global_position
 	elif input_mode == "gamepad":
 		direction = last_attack_direction
+
+	if direction.length() < 0.1:
+		direction = Vector2.RIGHT
 
 	body_sprite.flip_h = direction.x < 0
 	weapon_holder.rotation = direction.angle()
