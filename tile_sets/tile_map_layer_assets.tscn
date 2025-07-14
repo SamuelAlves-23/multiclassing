@@ -327,11 +327,15 @@ texture = ExtResource("1_p5282")
 0:21/0 = 0
 1:21/0 = 0
 3:21/0 = 0
+3:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:21/0 = 0
+4:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:21/0 = 0
 6:21/0 = 0
 7:21/0 = 0
+7:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:21/0 = 0
+8:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 9:21/0 = 0
 10:21/0 = 0
 11:21/0 = 0
@@ -339,11 +343,15 @@ texture = ExtResource("1_p5282")
 0:22/0 = 0
 1:22/0 = 0
 3:22/0 = 0
+3:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:22/0 = 0
+4:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:22/0 = 0
 6:22/0 = 0
 7:22/0 = 0
+7:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:22/0 = 0
+8:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 9:22/0 = 0
 10:22/0 = 0
 11:22/0 = 0
@@ -355,6 +363,9 @@ physics_layer_0/collision_mask = 58
 sources/0 = SubResource("TileSetAtlasSource_i8go2")
 
 [node name="TileMapLayerAssets" type="TileMapLayer"]
+
+[node name="WallsFloorLayer2" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_n5mfs")
 
 [node name="WallsFloorLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_n5mfs")
