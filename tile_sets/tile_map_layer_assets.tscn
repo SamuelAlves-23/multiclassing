@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://8b16l1wqdktd"]
+[gd_scene load_steps=7 format=3 uid="uid://8b16l1wqdktd"]
 
 [ext_resource type="Texture2D" uid="uid://ctmk1bb4mx0n" path="res://assets/PNG/walls_floor.png" id="1_p5282"]
+[ext_resource type="Texture2D" uid="uid://cy53qy3deakco" path="res://tile_sets/blocked.png" id="2_i8go2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i8go2"]
 texture = ExtResource("1_p5282")
@@ -245,9 +246,13 @@ texture = ExtResource("1_p5282")
 8:14/0 = 0
 0:15/0 = 0
 1:15/0 = 0
+1:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -5.06125, 8, -5.06125, 8, 8, -8, 8)
 2:15/0 = 0
+2:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -5.06125, 8, -5.06125, 8, 8, -8, 8)
 3:15/0 = 0
+3:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -5.06125, 8, -5.06125, 8, 8, -8, 8)
 4:15/0 = 0
+4:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -4.96297, -3.09572, -4.76642, -2.89916, 8, -8, 8)
 5:15/0 = 0
 6:15/0 = 0
 7:15/0 = 0
@@ -264,6 +269,7 @@ texture = ExtResource("1_p5282")
 3:16/0 = 0
 3:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:16/0 = 0
+4:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -3.19399, -8, -2.89916, 8, -8, 8)
 5:16/0 = 0
 6:16/0 = 0
 7:16/0 = 0
@@ -360,12 +366,30 @@ texture = ExtResource("1_p5282")
 [sub_resource type="TileSet" id="TileSet_n5mfs"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 58
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "WallsTerrain"
+terrain_set_0/terrain_0/color = Color(0.565153, 0.305879, 0.158594, 1)
 sources/0 = SubResource("TileSetAtlasSource_i8go2")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0dwwh"]
+texture = ExtResource("2_i8go2")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+
+[sub_resource type="TileSet" id="TileSet_p5282"]
+tile_size = Vector2i(8, 8)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+sources/0 = SubResource("TileSetAtlasSource_0dwwh")
 
 [node name="TileMapLayerAssets" type="TileMapLayer"]
 
-[node name="WallsFloorLayer2" type="TileMapLayer" parent="."]
+[node name="FloorLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_n5mfs")
 
 [node name="WallsFloorLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_n5mfs")
+
+[node name="BlockLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_p5282")
