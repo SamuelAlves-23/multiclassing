@@ -36,4 +36,4 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_local_entrance_body_entered(body: Node2D) -> void:
 	if body is Player:
-		GlobalManager.go_to_scene("res://Arenas/local_lobby.tscn")
+		GlobalManager.go_to_scene("res://arenas/local_lobby.tscn")
